@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cadastro de Despesa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/estilo.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <script src="js/jquery-3.5.1.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+
+
+        <form method="POST" action="/cadDespesa">
+
+            <div class="col-md-6 offset-md-3">
+                <% if ( validacao.length> 0 ){ %>
+                    <div class="alert alert-danger">
+                        <strong>Atenção</strong>
+                        <% for(let i=0; i<validacao.length;i++){ %>
+                            <ul>
+                                <li>
+                                    <%=validacao[i].msg %>
+                                </li>
+                            </ul>
+                            <% }%>
+                    </div>
+                    <% } %>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Despesa</label>
+                            <input class="form-control" type="text" name="despesa" id="edt_despesa"
+                                value="<%=dadosform.despesa%>" placeholder="Digite o nome da despesa" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Valor</label>
+                            <input class="form-control" type="text" name="valor" id="edt_valor"
+                                value="<%=dadosform.valor%>" placeholder="Digite o valor da despesa" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Data</label>
+                            <input class="form-control" type="date" name="data" id="edt_data"
+                                value="<%=dadosform.data%>" placeholder="Digite o nome da despesa" />
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <button type="submit" class="btn btn-primary" id="btn_gravar">Gravar</button>
+                        </div>
+
+            </div>
+
+        </form>
+    </div>
+    </div>
+
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+        </script>
+
+</body>
+
+</html>
