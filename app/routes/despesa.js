@@ -22,4 +22,11 @@ module.exports = function (application) {
         application.app.controllers.despesa.editarDespesa(application, req, res);
 
     });
+
+    application.post('/editardespesa', function (req, res) {
+        //application.app.controllers.despesa.editarDespesa(application, req, res);
+        dados = req.body;
+
+
+    });
 }

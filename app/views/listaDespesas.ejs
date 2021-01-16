@@ -19,6 +19,10 @@
 
 <body>
     <div class="container">
+        
+        <div id="menu" onload="carregamenu()">
+                 
+        </div>
 
         <div class="row g-1">
             <table class="table">
@@ -32,15 +36,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% for(let i=0; i<dados.length;i++) { %>
+                    <% for(let i=0; i<dados.length;i++) {   %>                       
                         <tr>
+
                             <td>
                                 <a style="text-decoration: none;color: black;"
                                     href="/delDespesas?id_despesa=<%=dados[i]._id  %> ">
                                     <i class="bi bi-x-square"></i>
                                 </a>
                                 <a style="text-decoration: none;color: black;"
-                                    href="/editdespesa?id_despesa=<%=dados[i]  %> ">
+                                    href="/editdespesa?id=<%= dados[i]._id %>" class="btn_Edit" onclick='editarregistro()' >
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                             </td>
@@ -48,11 +53,15 @@
                             <td scope="row">
                                 <%= dados[i].despesa %>
                             </td>
-                            <td>
+                            <td>                                
                                 <%= dados[i].valor %>
                             </td>
                             <td>
-                                <%= dados[i].data %>
+                                <% let data = dados[i].data;
+                                novadata = new Date(data).toLocaleDateString("pt-br");
+                                console.log(novadata);%>
+
+                                <%= dados[i].data  %>
                             </td>
                             <td>Pago</td>
                         </tr>

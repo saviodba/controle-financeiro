@@ -46,13 +46,16 @@ module.exports.deletarDespesa = function (application, req, res) {
 
 module.exports.editarDespesa = function (application, req, res) {
     let url_query = req.query;
-    console.log(url_query.despesa);
+        
+    //res.render("cadDespesa",{validacao: {}, dadosform: {} })
 
-    // let connection = application.config.dbConnection;
-    // let DespesaDAO = new application.app.models.DespesaDAO(connection);
+    let connection = application.config.dbConnection;
+    let DespesaDAO = new application.app.models.DespesaDAO(connection);
 
-    // let _id = url_query.id_despesa;
-
+    let _id = url_query.id;
+   
+    DespesaDAO.recupararDespesa( _id, res );
+    
     // DespesaDAO.editarDespesa(_id, res);
 }
 

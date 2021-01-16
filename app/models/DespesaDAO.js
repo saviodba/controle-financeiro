@@ -19,7 +19,7 @@ DespesaDAO.prototype.recuperarDespesas = function (res, req) {
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
             collection.find().toArray(function (err, result) {
-
+                
                 res.render('listaDespesas', { dados: result });
 
                 mongoclient.close();
@@ -43,6 +43,43 @@ DespesaDAO.prototype.deletarDespesas = function (_id, res) {
 
         });
     });
+}
+
+DespesaDAO.prototype.recupararDespesa = function(_id, res) {
+    
+    this._connection.open(function (err, mongoclient) {
+        mongoclient.collection("despesas", function (err, collection) {
+            
+            collection.find( {_id: ObjectID(_id)} ).toArray(function (err, result) {
+
+                res.render('cadDespesa', { validacao: {}, dadosform: result[0] });
+                
+                mongoclient.close();
+            });
+        });
+    });
+}
+
+DespesaDAO.prototype.somarDespesas = function( req, res ) {
+    this._connection.open(function (err, mongoclient) {
+        mongoclient.collection("despesas", function (err, collection) {
+            collection.find().toArray(function (err, result) {
+
+                let total = 0.00;
+                for (let i = 0; i < result.length; i++) {
+                    total += parseFloat( result[i].valor);                     
+                }                
+
+                let valorFormatado =  total.toLocaleString('pt-br',{style:'currency',currency:'BRL'});
+
+                console.log(valorFormatado);
+
+                res.render("index", { valorFormatado } );
+                mongoclient.close();
+            });
+        });
+    });
+    
 }
 
 module.exports = function () {
