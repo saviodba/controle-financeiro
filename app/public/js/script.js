@@ -1,77 +1,45 @@
 $(document).ready(function () {
-    
-    $('.btn_Del').click(function ( ) {
-        alert("Excluir registro")
-
-    });
-
-    $('.btn_Edit').click(function () {        
-        editarregistro()
-    });
-
     $('#btn_voltar').click(function () {
-       window.location.href = '/listaDespesas';
+        window.location.href = '/listaDespesas';
     });
 
     $.ajax({
-        url:'/menu',
+        url: '/menu',
         method: "get",
-        success:function(data){                
+        success: function (data) {
             document.getElementById("menu").innerHTML = data;
         }
     });
-    
-
-    //let btnGravar = document.querySelector('#btn_gravar');
-
-    //btnGravar.addEventListener('click', e =>{
-        
-   // });
-
     /*
-    $('#btn_gravar').click(function(acao){
-        console.log(acao);
-
-        if (acao === 1){
-            console.log("Novo Registro")
-        } else if (acao === 2 ){
-            console.log("Edição de Registro");
-        }
+        $('#btn_gravar').click(function () {
     
+            $.ajax({
+                url: '/despesa',
+                method: "post",
+                data: { nome: "Sávio Pereira" },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    */
 
-    });*/
 });
 
-function cadastro(tipo){
-    if (tipo == 1 ){
+
+function cadastro(_id) {
+    if (_id == "") {
         console.log("Novo cadastro")
     } else {
-            
-        let dados  = $(this).serialize();
-        $("#theForm").ajaxSubmit({url: '?editardespesa', type: 'post'})
-
-        /*$.ajax({
-            url:'/editardespesa',
-            method: "post",
-            data:  {
-                dados: dados
-            },
-            dataType: "json",
-            success:function(data){                
-                //document.getElementById("menu").innerHTML = data;
-                console.log(data);    
-            }
-        });*/
-
+        window.location.href = '/editdespesa?id=' + _id;
+        //let dados = $(this).serialize();
+        //$("#theForm").ajaxSubmit({ url: '?editardespesa', type: 'post' })
     }
-
-
-      
 }
 
 
 
-function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e){
+function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
     var sep = 0;
     var key = '';
     var i = j = 0;
@@ -83,16 +51,16 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e){
     key = String.fromCharCode(whichCode); // Valor para o código da Chave
     if (strCheck.indexOf(key) == -1) return false; // Chave inválida
     len = objTextBox.value.length;
-    for(i = 0; i < len; i++)
+    for (i = 0; i < len; i++)
         if ((objTextBox.value.charAt(i) != '0') && (objTextBox.value.charAt(i) != SeparadorDecimal)) break;
     aux = '';
-    for(; i < len; i++)
-        if (strCheck.indexOf(objTextBox.value.charAt(i))!=-1) aux += objTextBox.value.charAt(i);
+    for (; i < len; i++)
+        if (strCheck.indexOf(objTextBox.value.charAt(i)) != -1) aux += objTextBox.value.charAt(i);
     aux += key;
     len = aux.length;
     if (len == 0) objTextBox.value = '';
-    if (len == 1) objTextBox.value = '0'+ SeparadorDecimal + '0' + aux;
-    if (len == 2) objTextBox.value = '0'+ SeparadorDecimal + aux;
+    if (len == 1) objTextBox.value = '0' + SeparadorDecimal + '0' + aux;
+    if (len == 2) objTextBox.value = '0' + SeparadorDecimal + aux;
     if (len > 2) {
         aux2 = '';
         for (j = 0, i = len - 3; i >= 0; i--) {
@@ -106,7 +74,7 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e){
         objTextBox.value = '';
         len2 = aux2.length;
         for (i = len2 - 1; i >= 0; i--)
-        objTextBox.value += aux2.charAt(i);
+            objTextBox.value += aux2.charAt(i);
         objTextBox.value += SeparadorDecimal + aux.substr(len - 2, len);
     }
     return false;

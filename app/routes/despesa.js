@@ -29,4 +29,18 @@ module.exports = function (application) {
 
 
     });
+
+    application.post('/despesa', function (req, res) {
+        dados = req.body;
+        let id = dados.id;
+
+        if (id != "") {
+            application.app.controllers.despesa.editDespesa(application, req, res);
+        } else {
+            application.app.controllers.despesa.inserirDespesa(application, req, res);
+        }
+
+
+
+    });
 }
