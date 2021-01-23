@@ -1,8 +1,5 @@
 $(document).ready(function () {
-    $('#btn_voltar').click(function () {
-        window.location.href = '/listaDespesas';
-    });
-
+    
     $.ajax({
         url: '/menu',
         method: "get",
@@ -10,34 +7,27 @@ $(document).ready(function () {
             document.getElementById("menu").innerHTML = data;
         }
     });
-    /*
-        $('#btn_gravar').click(function () {
-    
-            $.ajax({
-                url: '/despesa',
-                method: "post",
-                data: { nome: "Sávio Pereira" },
-                success: function (data) {
-                    console.log(data);
-                }
-            });
-        });
-    */
 
+    $('#chk_pago').click(function(){
+   
+    });
+
+    $('#btn_voltar').click(function () {
+        window.location.href = '/lista';
+    });
+   
 });
 
 
 function cadastro(_id) {
     if (_id == "") {
-        console.log("Novo cadastro")
+        $.ajax({
+            url: '/despesa'
+        });
     } else {
-        window.location.href = '/editdespesa?id=' + _id;
-        //let dados = $(this).serialize();
-        //$("#theForm").ajaxSubmit({ url: '?editardespesa', type: 'post' })
+        window.location.href = '/despesa?id=' + _id;
     }
 }
-
-
 
 function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
     var sep = 0;

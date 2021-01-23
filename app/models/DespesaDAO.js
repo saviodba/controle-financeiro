@@ -4,7 +4,7 @@ function DespesaDAO(connection) {
     this._connection = connection();
 }
 
-DespesaDAO.prototype.inserirDespesa = function (despesa) {
+DespesaDAO.prototype.inserirdespesa = function (despesa) {
 
     this._connection.open(function (err, mongoclient) {
 
@@ -15,12 +15,12 @@ DespesaDAO.prototype.inserirDespesa = function (despesa) {
     });
 }
 
-DespesaDAO.prototype.recuperarDespesas = function (res, req) {
+DespesaDAO.prototype.listadespesas = function (res, req) {
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
             collection.find().toArray(function (err, result) {
 
-                res.render('listaDespesas', { dados: result });
+                res.render('listadespesas', { dados: result });
 
                 mongoclient.close();
             });
@@ -28,7 +28,7 @@ DespesaDAO.prototype.recuperarDespesas = function (res, req) {
     });
 }
 
-DespesaDAO.prototype.deletarDespesas = function (_id, res) {
+DespesaDAO.prototype.deletardespesas = function (_id, res) {
 
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
@@ -36,7 +36,7 @@ DespesaDAO.prototype.deletarDespesas = function (_id, res) {
             collection.remove(
                 { _id: ObjectID(_id) },
                 function (err, result) {
-                    res.redirect('listaDespesas');
+                    res.redirect('lista');
                     mongoclient.close();
                 }
             );
@@ -45,24 +45,23 @@ DespesaDAO.prototype.deletarDespesas = function (_id, res) {
     });
 }
 
-DespesaDAO.prototype.recupararDespesa = function (_id, res) {
-
+DespesaDAO.prototype.recuperardespesa = function (_id, res) {
+   
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
 
             collection.find({ _id: ObjectID(_id) }).toArray(function (err, result) {
-
-                res.render('cadDespesa', { validacao: {}, dadosform: result[0] });
-
+                res.render('cadastrodespesa', { validacao: {}, dadosform: result[0] });
                 mongoclient.close();
             });
         });
     });
 }
 
-DespesaDAO.prototype.somarDespesas = function (req, res) {
+DespesaDAO.prototype.somardespesas = function (req, res, mesano) {
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
+            
             collection.find().toArray(function (err, result) {
 
                 let total = 0.00;
@@ -72,7 +71,7 @@ DespesaDAO.prototype.somarDespesas = function (req, res) {
 
                 let valorFormatado = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
-                res.render("index", { valorFormatado });
+                res.render("index", { valorFormatado, mesano });
                 mongoclient.close();
             });
         });
@@ -80,28 +79,35 @@ DespesaDAO.prototype.somarDespesas = function (req, res) {
 
 }
 
-DespesaDAO.prototype.editardespesa = function (_id, res, req) {
+DespesaDAO.prototype.editardespesa = function ( _id, req, res ) {
     let dados = req.body;
-
+    console.log(dados);
+    
     this._connection.open(function (err, mongoclient) {
+        
+        mongoclient.collection("despesas", function (err, collection) {   
 
-        mongoclient.collection("despesas", function (err, collection) {
-
-            console.log(collection);
-
-            collection.updateOne(
+            collection.update(
+                {  
+                    _id: ObjectID(_id) 
+                }, 
                 {
-                    _id: ObjectID(_id)
-                },
-                {
-                    $set: { dados }
+                    $set : 
+                    {
+                        despesa : dados.despesa,
+                        valor :  dados.valor,
+                        data : dados.data,
+                        situacao : dados.situacao 
+                    }
                 }
-            );
-
-            res.redirect('listaDespesas');
-            mongoclient.close();
+            );            
+            
+            
         });
-    });
+        res.redirect('lista');
+            mongoclient.close();
+    });  
+     
 }
 
 module.exports = function () {

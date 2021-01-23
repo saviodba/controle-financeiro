@@ -22,14 +22,14 @@
 
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">Mês e Ano</h5>
-                <strong class="card-text"> 01/2021 </strong>
+                <h5 class="card-title">Mês/Ano</h5>
+                <input class="card-text" type="month" value="<%=mesano%>">  </input>
             </div>
         </div>
 
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">Total das despesas (Fixas)</h5>
+                <h5 class="card-title">Despesas Fixas</h5>
                 <strong class="card-text">
                     <%= valorFormatado %>
                 </strong>
@@ -37,6 +37,25 @@
             </div>
         </div>
 
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Despesas Flexiveis</h5>
+                <strong class="card-text">
+                    R$ 0,00
+                </strong>
+
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Cartão Credito</h5>
+                <strong class="card-text">
+                    R$ 0,00
+                </strong>
+
+            </div>
+        </div>
     </div>
 
     <script src="js/script.js"></script>

@@ -1,46 +1,29 @@
 module.exports = function (application) {
 
-    application.get('/cadDespesa', function (req, res) {
-        application.app.controllers.despesa.cadastroDespesa(application, req, res);
+    application.get('/cadastro', function (req, res) {
+        application.app.controllers.despesa.cadastrodespesa(application, req, res);
     });
 
-    application.get('/listaDespesas', function (req, res) {
+    application.get('/lista', function (req, res) {
         application.app.controllers.despesa.listadespesas(application, req, res);
     });
 
-    application.post('/cadDespesa', function (req, res) {
-        application.app.controllers.despesa.inserirDespesa(application, req, res);
+    application.post('/cadastro', function (req, res) {
+        application.app.controllers.despesa.inserirdespesa(application, req, res);
 
     });
 
-    application.get('/delDespesas', function (req, res) {
-        application.app.controllers.despesa.deletarDespesa(application, req, res);
+    application.get('/deletar', function (req, res) {
+        application.app.controllers.despesa.deletardespesa(application, req, res);
 
     });
 
-    application.get('/editdespesa', function (req, res) {
-        application.app.controllers.despesa.editarDespesa(application, req, res);
+    application.get('/despesa', function (req, res) {
+        application.app.controllers.despesa.recuperardespesa(application, req, res);
 
     });
 
-    application.post('/editardespesa', function (req, res) {
-        //application.app.controllers.despesa.editarDespesa(application, req, res);
-        dados = req.body;
-
-
-    });
-
-    application.post('/despesa', function (req, res) {
-        dados = req.body;
-        let id = dados.id;
-
-        if (id != "") {
-            application.app.controllers.despesa.editDespesa(application, req, res);
-        } else {
-            application.app.controllers.despesa.inserirDespesa(application, req, res);
-        }
-
-
-
+    application.post('/despesa', function (req, res) {   
+        application.app.controllers.despesa.editardespesa(application, req, res);
     });
 }
