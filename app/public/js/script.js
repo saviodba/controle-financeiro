@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $.ajax({
         url: '/menu',
         method: "get",
@@ -8,14 +8,39 @@ $(document).ready(function () {
         }
     });
 
-    $('#chk_pago').click(function(){
-   
+    $('#chk_pago').click(function () {
+
     });
 
     $('#btn_voltar').click(function () {
         window.location.href = '/lista';
     });
-   
+
+
+    $.ajax({
+        url: '/listatipodespesa',
+        method: "get",
+        success: function (data) {
+            $('#listatpdespesa').html(data);
+
+        }
+    });
+
+    $.ajax({
+        url: '/getTipodespesa',
+        method: "get",
+        success: function (data) {
+
+
+            let html = "<option> " +
+                " <select> Fixas </select>"
+            "</option>";
+            console.log(html);
+            $('#getTpDespesa').html(html);
+
+        }
+    });
+
 });
 
 

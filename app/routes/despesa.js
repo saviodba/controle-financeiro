@@ -20,10 +20,29 @@ module.exports = function (application) {
 
     application.get('/despesa', function (req, res) {
         application.app.controllers.despesa.recuperardespesa(application, req, res);
-
     });
 
-    application.post('/despesa', function (req, res) {   
+    application.post('/despesa', function (req, res) {
         application.app.controllers.despesa.editardespesa(application, req, res);
+    });
+
+    application.get('/tipodespesa', function (req, res) {
+        application.app.controllers.despesa.tipodespesa(application, req, res);
+    });
+
+    application.post('/tipodespesa', function (req, res) {
+        application.app.controllers.despesa.cadastrartipodespesa(application, req, res);
+    });
+
+    application.get('/listatipodespesa', function (req, res) {
+        application.app.controllers.despesa.listatipodespesa(application, req, res);
+    });
+
+    application.get('/getTipodespesa', function (req, res) {
+        application.app.controllers.despesa.getTipodespesa(application, req, res);
+    });
+
+    application.get('/deletartipodespesa', function (req, res) {
+        application.app.controllers.despesa.deletartipodespesa(application, req, res);
     });
 }
