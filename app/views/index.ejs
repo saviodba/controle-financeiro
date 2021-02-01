@@ -19,41 +19,81 @@
     <div id="menu"></div>
 
     <div class="container">
+        <div class="row mt-2">
+            <div class="col-md-8">
+                <table class="table">
+                    <thead class="table table-dark">
+                        <tr>
+                            <th scope=""></th>
+                            <th scope="col">Despesa</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for( let i=0; i < dados.length; i++) {%>
+                            <tr class="linha" onclick="">
+                                <td> <i class="bi bi-x-square"></i>
+                                </td>
 
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Mês/Ano</h5>
-                <input class="card-text" type="month" value="<%=mesano%>">  </input>
+                                <td scope="row">
+                                    <%=dados[i].despesa%>
+                                </td>
+                                <td>
+                                    <%=dados[i].valor %>
+                                </td>
+                                <td>
+                                    <%=dados[i].data %>
+                                </td>
+                                <td>
+                                    <%=dados[i].situacao%>
+                                </td>
+                            </tr>
+                            <%}%>
+                    </tbody>
+                </table>
             </div>
-        </div>
 
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Despesas Fixas</h5>
-                <strong class="card-text">
-                    <%= valorFormatado %>
-                </strong>
+            <div class="col-md-2">
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Mês/Ano</h5>
+                        <input class="card-text" type="month" value="<%=mesano%>" id="dt_desp"
+                            onchange="EnviarData(this.value)">
+                        </input>
+                    </div>
+                </div>
 
-            </div>
-        </div>
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Despesas Fixas</h5>
+                        <strong class="card-text">
+                            <%= valorFormatado %>
+                        </strong>
 
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Despesas Flexiveis</h5>
-                <strong class="card-text">
-                    R$ 0,00
-                </strong>
+                    </div>
+                </div>
 
-            </div>
-        </div>
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Despesas Flexiveis</h5>
+                        <strong class="card-text">
+                            R$ 0,00
+                        </strong>
 
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Cartão Credito</h5>
-                <strong class="card-text">
-                    R$ 0,00
-                </strong>
+                    </div>
+                </div>
 
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Cartão Credito</h5>
+                        <strong class="card-text">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    let tpdes = tipodespesa();
+    console.log(tpdes.descricao);
+
     $.ajax({
         url: '/menu',
         method: "get",
@@ -41,8 +44,17 @@ $(document).ready(function () {
         }
     });
 
+
 });
 
+function EnviarData(data) {
+    console.log(data);
+}
+
+function tipodespesa() {
+    return { descricao: "Fixas" };
+
+}
 
 function cadastro(_id) {
     if (_id == "") {

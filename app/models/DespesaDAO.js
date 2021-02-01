@@ -58,7 +58,7 @@ DespesaDAO.prototype.recuperardespesa = function (_id, res) {
     });
 }
 
-DespesaDAO.prototype.somardespesas = function (req, res, mesano) {
+DespesaDAO.prototype.somardespesas = function (req, res, callback) {
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
 
@@ -71,7 +71,8 @@ DespesaDAO.prototype.somardespesas = function (req, res, mesano) {
 
                 let valorFormatado = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
-                res.render("index", { valorFormatado, mesano });
+                //res.render("index", { valorFormatado, mesano });
+                callback(valorFormatado, result);
                 mongoclient.close();
             });
         });
@@ -81,8 +82,6 @@ DespesaDAO.prototype.somardespesas = function (req, res, mesano) {
 
 DespesaDAO.prototype.editardespesa = function (_id, req, res) {
     let dados = req.body;
-    console.log(dados);
-
     this._connection.open(function (err, mongoclient) {
 
         mongoclient.collection("despesas", function (err, collection) {
