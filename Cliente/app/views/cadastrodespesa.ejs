@@ -20,34 +20,22 @@
     <div id="menu"></div>
     <div class="container">
 
-        <form method="post" id="form-user-create">
+        <form id="form-user-create">
             <div class="col-md-6 offset-md-3">
-                <% if ( validacao.length> 0 ){ %>
-                    <div class="alert alert-danger">
-                        <strong>Atenção</strong>
-                        <% for(let i=0; i<validacao.length;i++){ %>
-                            <ul>
-                                <li>
-                                    <%=validacao[i].msg %>
-                                </li>
-                            </ul>
-                            <% }%>
-                    </div>
-                    <% } %>
-                        <input type="hidden" name="id" value="<%=dadosform._id %>">
+                      
 
                         </input>
 
                         <div class="form-group">
                             <label class="col-sm-2 col-form-label">Despesa</label>
                             <input class="form-control" type="text" name="despesa" id="edt_despesa"
-                                value="<%=dadosform.despesa%>" placeholder="Digite o nome da despesa" />
+                                 placeholder="Digite o nome da despesa" />
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 col-form-label">Valor</label>
                             <input class="form-control" type="text" name="valor" id="edt_valor"
-                                value="<%=dadosform.valor%>" placeholder="Digite o valor da despesa"
+                                placeholder="Digite o valor da despesa"
                                 onKeyPress="return(MascaraMoeda(this,'.',',',event))" />
                         </div>
 
@@ -62,7 +50,7 @@
                         <div class="form-group">
                             <label class="col-sm col-form-label">Data</label>
                             <input class="form-control" type="date" name="data" id="edt_data"
-                                value="<%=dadosform.data%>" placeholder="Digite o nome da despesa" />
+                                 placeholder="Digite o nome da despesa" />
                         </div>
 
                         <div class="form-check">

@@ -32,30 +32,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%for( let i=0; i < dados.length; i++) {%>
-
-                            <tr class="linha" onclick="cadastro( '<%=dados[i]._id%>' )">
+                   
+                            <tr class="linha">
                                 <td>
                                     <a style="text-decoration: none;color: black;"
-                                        href="/deletar?id_despesa=<%=dados[i]._id  %> ">
+                                        href="#">
                                         <i class="bi bi-x-square"></i>
                                     </a>
                                 </td>
 
                                 <td scope="row">
-                                    <%=dados[i].despesa%>
+                                    Luz
                                 </td>
                                 <td>
-                                    <%=dados[i].valor %>
+                                    200,00
                                 </td>
                                 <td>
-                                    <%=dados[i].data %>
+                                    10/02/2021
                                 </td>
                                 <td>
-                                    <%=dados[i].tipodespesa%>
+                                    Fixas
                                 </td>
                             </tr>
-                            <%}%>
+                            
                     </tbody>
                 </table>
             </div>
@@ -64,7 +63,7 @@
                 <div class="card" style="width: 15rem;">
                     <div class="card-body">
                         <h5 class="card-title">Mês ref. </h5>
-                        <input class="card-text" type="month" value="<%=mesano%>" id="dt_desp"
+                        <input class="card-text" type="month" value="2021-02" id="dt_desp"
                             onchange="EnviarData(this.value)">
                         </input>
                     </div>
@@ -74,7 +73,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Despesas Fixas</h5>
                         <strong class="card-text">
-                            <%= valorFormatado %>
+                            R$ 0,00
                         </strong>
 
                     </div>

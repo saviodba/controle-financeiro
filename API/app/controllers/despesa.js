@@ -1,26 +1,9 @@
 module.exports.cadastrodespesa = function (application, req, res) {
-    let tpdesp = [{
-        id: 1,
-        tipodespesa: "Fixas"
-    },
-    {
-        id: 2,
-        tipodespesa: "Variaveis"
-    },
-    {
-        id: 3,
-        tipodespesa: "Cartão Credito"
-    }
-    ];  
-
+    
     let conn = application.config.dbConnection;
     let dao = new application.app.models.DespesaDAO(conn);
 
-    dao.getTipodespesa(req, res, function (err, dados) {
-
-        res.render("cadastrodespesa", { validacao: {}, dadosform: {}, listpDesp: dados });
-
-    });
+    dao.getTipodespesa(req, res);
 }
 
 module.exports.getTipodespesa = function (application, req, res) {
@@ -33,8 +16,10 @@ module.exports.getTipodespesa = function (application, req, res) {
 }
 
 module.exports.inserirdespesa = function (application, req, res) {
+   
     let dadosForm = req.body;
-
+    
+    
     req.assert("despesa", "Descrição não pode ser em branco").notEmpty();
     req.assert("valor", "Valor não pode ser em branco").notEmpty();
     req.assert("tipodespesa", "Tipo da despesa não pode ser em branco").notEmpty();
@@ -43,7 +28,7 @@ module.exports.inserirdespesa = function (application, req, res) {
     let errors = req.validationErrors();
 
     if (errors) {
-        res.render("cadastrodespesa", { validacao: errors, dadosform: dadosForm });
+        res.send({ result: errors});
         return;
     }
 
@@ -51,13 +36,11 @@ module.exports.inserirdespesa = function (application, req, res) {
     let connection = application.config.dbConnection;
     let DespesaDAO = new application.app.models.DespesaDAO(connection);
 
-    DespesaDAO.inserirdespesa(dadosForm);
-    res.redirect('/lista');
-
+    DespesaDAO.inserirdespesa(res, dadosForm);
 }
 
 module.exports.listadespesas = function (application, req, res) {
-
+   
     let connection = application.config.dbConnection;
     let DespesaDAO = new application.app.models.DespesaDAO(connection);
     DespesaDAO.listadespesas(res);
@@ -65,36 +48,48 @@ module.exports.listadespesas = function (application, req, res) {
 }
 
 module.exports.deletardespesa = function (application, req, res) {
-    let url_query = req.query;
+    let id = req.params.id;
 
     let connection = application.config.dbConnection;
     let DespesaDAO = new application.app.models.DespesaDAO(connection);
 
-    let _id = url_query.id_despesa;
-
-    DespesaDAO.deletardespesas(_id, res);
+    DespesaDAO.deletardespesa(id, res);
 }
 
 module.exports.recuperardespesa = function (application, req, res) {
-    let url_query = req.query;
-    let _id = url_query.id;
-
+    let id = req.params.id;
     let connection = application.config.dbConnection;
     let DespesaDAO = new application.app.models.DespesaDAO(connection);
 
-
-    DespesaDAO.recuperardespesa(_id, res);
+    DespesaDAO.recuperardespesa(id, res);
 }
 
 module.exports.editardespesa = function (application, req, res) {
-    let url_query = req.query;
-    let _id = url_query.id;
+    let id = req.params.id;   
 
     let connection = application.config.dbConnection;
     let DespesaDAO = new application.app.models.DespesaDAO(connection);
 
-    DespesaDAO.editardespesa(_id, req, res);
+    DespesaDAO.editardespesa(id, req, res);
 }
+
+module.exports.despesames = function (application, req, res) {
+    let mesano = req.params.data; 
+ 
+   
+    let data = new Date( mesano +"-1" );
+    
+    let datainicial = new Date(data.getFullYear(), data.getMonth(), 1);
+    let datafinal = new Date(data.getFullYear(), data.getMonth() + 1, 0);
+
+    let connection = application.config.dbConnection;
+    let DespesaDAO = new application.app.models.DespesaDAO(connection);   
+
+    DespesaDAO.getdeespesames(req, res, datainicial, datafinal);  
+}
+
+
+
 
 module.exports.tipodespesa = function (application, req, res) {
     res.render("tipodespesa", { validacao: {}, dadosform: {} });

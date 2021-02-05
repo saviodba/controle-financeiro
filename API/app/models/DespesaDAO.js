@@ -1,26 +1,32 @@
 let ObjectID = require('mongodb').ObjectId;
 let moment = require('moment');
+
 function DespesaDAO(connection) {
     this._connection = connection();
 }
 
-DespesaDAO.prototype.inserirdespesa = function (despesa) {
+DespesaDAO.prototype.inserirdespesa = function (res, despesa) {
 
     this._connection.open(function (err, mongoclient) {
 
         mongoclient.collection("despesas", function (err, collection) {
             collection.insert(despesa);
+
+            if(err){
+                res.json( err )
+            } else {
+                res.send({result: "Inserção realizada com sucesso"})
+            }
             mongoclient.close();
         });
     });
 }
 
-DespesaDAO.prototype.listadespesas = function (res, req) {
+DespesaDAO.prototype.listadespesas = function (res) {
+
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
             collection.find().toArray(function (err, result) {
-
-                //res.render('listadespesas', { dados: result });
                 res.send(result);
                 mongoclient.close();
             });
@@ -28,7 +34,7 @@ DespesaDAO.prototype.listadespesas = function (res, req) {
     });
 }
 
-DespesaDAO.prototype.deletardespesas = function (_id, res) {
+DespesaDAO.prototype.deletardespesa = function (_id, res) {
 
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
@@ -36,7 +42,13 @@ DespesaDAO.prototype.deletardespesas = function (_id, res) {
             collection.remove(
                 { _id: ObjectID(_id) },
                 function (err, result) {
-                    res.redirect('lista');
+                    
+                    if(err){
+                        res.json(err);
+                    } else {
+                        res.send(result);
+                    }
+                    
                     mongoclient.close();
                 }
             );
@@ -45,20 +57,26 @@ DespesaDAO.prototype.deletardespesas = function (_id, res) {
     });
 }
 
-DespesaDAO.prototype.recuperardespesa = function (_id, res) {
+DespesaDAO.prototype.recuperardespesa = function (id, res) {
 
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
 
-            collection.find({ _id: ObjectID(_id) }).toArray(function (err, result) {
-                res.render('cadastrodespesa', { validacao: {}, dadosform: result[0], listpDesp: {} });
+            collection.find({ _id: ObjectID(id) }).toArray(function (err, result) {
+                
+                if(err){
+                    res.json(err);
+                } else {
+                    res.send(result);
+                }
+
                 mongoclient.close();
             });
         });
     });
 }
 
-DespesaDAO.prototype.getDespesaMes = function (req, res, dataini, datafim, callback) {
+DespesaDAO.prototype.getdeespesames = function (req, res, dataini, datafim) {
     this._connection.open(function (err, mongoclient) {
         mongoclient.collection("despesas", function (err, collection) {
             
@@ -75,7 +93,7 @@ DespesaDAO.prototype.getDespesaMes = function (req, res, dataini, datafim, callb
     
                 let valorFormatado = total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                                 
-                callback(valorFormatado, result);
+                res.send( result );
 
                 mongoclient.close();                
             });
@@ -84,15 +102,16 @@ DespesaDAO.prototype.getDespesaMes = function (req, res, dataini, datafim, callb
     });
 }
 
-DespesaDAO.prototype.editardespesa = function (_id, req, res) {
+DespesaDAO.prototype.editardespesa = function (id, req, res) {
     let dados = req.body;
-    this._connection.open(function (err, mongoclient) {
+
+     this._connection.open(function (err, mongoclient) {
 
         mongoclient.collection("despesas", function (err, collection) {
 
             collection.update(
                 {
-                    _id: ObjectID(_id)
+                    _id: ObjectID(id)
                 },
                 {
                     $set:
@@ -107,9 +126,14 @@ DespesaDAO.prototype.editardespesa = function (_id, req, res) {
             );
 
         });
-        res.redirect('lista');
+        
+        if(err){
+            res.json(err)
+        } else{
+            res.send({result: "200"});
+        }
         mongoclient.close();
-    });
+    })
 
 }
 
