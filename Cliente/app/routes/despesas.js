@@ -4,6 +4,10 @@ module.exports = function (application) {
         application.app.controllers.despesa.index(application, req, res);
     });
 
+    application.post('/', function (req, res) {
+        application.app.controllers.despesa.cadastrodespesa(application, req, res);
+    });
+
     application.get('/despesas', function (req, res) {
         application.app.controllers.despesa.lista(application, req, res);
     });
@@ -18,5 +22,5 @@ module.exports = function (application) {
 
     application.get('/menu', function (req, res) {
         application.app.controllers.despesa.menu(application, req, res);
-    });    
+    });
 }

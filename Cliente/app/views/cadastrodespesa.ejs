@@ -20,53 +20,50 @@
     <div id="menu"></div>
     <div class="container">
 
-        <form id="form-user-create">
+        <form role="form" id="form-user-create">
             <div class="col-md-6 offset-md-3">
-                      
 
-                        </input>
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">Despesa</label>
+                    <input class="form-control" type="text" name="despesa" id="edt_despesa"
+                        placeholder="Digite o nome da despesa" />
+                </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 col-form-label">Despesa</label>
-                            <input class="form-control" type="text" name="despesa" id="edt_despesa"
-                                 placeholder="Digite o nome da despesa" />
-                        </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">Valor</label>
+                    <input class="form-control" type="text" name="valor" id="edt_valor"
+                        placeholder="Digite o valor da despesa" onKeyPress="return(MascaraMoeda(this,'.',',',event))" />
+                </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 col-form-label">Valor</label>
-                            <input class="form-control" type="text" name="valor" id="edt_valor"
-                                placeholder="Digite o valor da despesa"
-                                onKeyPress="return(MascaraMoeda(this,'.',',',event))" />
-                        </div>
+                <div class="form-group">
+                    <label class="col-sm-6 col-form-label">Tipo de Despesa</label>
 
-                        <div class="form-group">
-                            <label class="col-sm-6 col-form-label">Tipo de Despesa</label>
+                    <select class="form-control" id="getTpDespesa" name="tipodespesa">
+                        <option value=""></option>
+                    </select>
+                </div>
 
-                            <select class="form-control" id="getTpDespesa" name="tipodespesa" >
-                              <option value=""></option>                           
-                            </select>
-                        </div>
+                <div class="form-group">
+                    <label class="col-sm col-form-label">Data</label>
+                    <input class="form-control" type="date" name="data" id="edt_data"
+                        placeholder="Digite o nome da despesa" />
+                </div>
 
-                        <div class="form-group">
-                            <label class="col-sm col-form-label">Data</label>
-                            <input class="form-control" type="date" name="data" id="edt_data"
-                                 placeholder="Digite o nome da despesa" />
-                        </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="situacao" checked id="chk_pago" />
+                    <label class="form-check-label">Pago</label>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="situacao"
-                            checked id="chk_pago" />
-                            <label class="form-check-label">Pago</label>
+                </div>
 
-                        </div>
-
-                        <div class="col-md-6 mt-2">
-                            <button type="submit" class="btn btn-primary" id="btn_gravar">Gravar</button>
-                            <button type="button" class="btn btn-primary" id="btn_voltar">Voltar</button>
-                        </div>
+                <div class="col-md-6 mt-2">
+                    <button type="submit" class="btn btn-primary" id="btn_gravar">Gravar</button>
+                    <button type="button" class="btn btn-primary" id="btn_voltar">Voltar</button>
+                </div>
             </div>
         </form>
     </div>
+    <script src="classes/Despesa.js"></script>
+    <script src="classes/HttpRequest.js"></script>
     <script src="js/script.js"></script>
     <script src="js/despesa.js"></script>
 </body>

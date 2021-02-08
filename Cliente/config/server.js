@@ -5,6 +5,7 @@ let bodyParser = require('body-parser');
 let ejs = require('ejs');
 let consign = require('consign');
 let mongodb = require('mongodb');
+let restify = require('restify-clients');
 
 let app = express();
 
@@ -21,6 +22,10 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false
 }));
+
+let client = restify.createJSONClient({
+    url: "http://localhost:81"
+});
 
 consign()
     .include('app/routes')

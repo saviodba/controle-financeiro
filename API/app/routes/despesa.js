@@ -13,9 +13,7 @@ module.exports = function (application) {
     });
 
     application.post('/api', function (req, res) {
-        res.setHeader("Acces-Control-Allow-Origin","*");
         application.app.controllers.despesa.inserirdespesa(application, req, res);
-
     });
 
     application.delete('/api/:id', function (req, res) {
@@ -26,23 +24,21 @@ module.exports = function (application) {
         application.app.controllers.despesa.editardespesa(application, req, res);
     });
 
+    application.get('/apitpdespesa', function (req, res) {
+        application.app.controllers.despesa.getTipodespesa(application, req, res);
+    });
 
+    application.get('/listatipodespesa', function (req, res) {
+        application.app.controllers.despesa.listatipodespesa(application, req, res);
+    });
 
 
     application.post('/despesa', function (req, res) {
         application.app.controllers.despesa.editardespesa(application, req, res);
     });
 
-    application.get('/tipodespesa', function (req, res) {
-        application.app.controllers.despesa.tipodespesa(application, req, res);
-    });
-
     application.post('/tipodespesa', function (req, res) {
         application.app.controllers.despesa.cadastrartipodespesa(application, req, res);
-    });
-
-    application.get('/listatipodespesa', function (req, res) {
-        application.app.controllers.despesa.listatipodespesa(application, req, res);
     });
 
     application.get('/getTipodespesa', function (req, res) {

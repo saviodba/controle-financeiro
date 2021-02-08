@@ -20,6 +20,7 @@
     "express-session": "^1.17.1",
     "express-validator": "^2.20.8",
     "moment": "^2.29.1",
-    "mongodb": "^2.2.9"
+    "mongodb": "^2.2.9",
+    "restify-clients": "^3.1.0"
   }
 }

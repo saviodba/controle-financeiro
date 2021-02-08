@@ -1,66 +1,100 @@
 
-    $.ajax({
-        url: '/menu',
-        method: "get",
-        success: function (data) {    
-            document.getElementById("menu").innerHTML = data;
-        }
-    });
+$.ajax({
+    url: '/menu',
+    method: "get",
+    success: function (data) {
+        document.getElementById("menu").innerHTML = data;
+    }
+});
 
-    $('#btn_voltar').click(function () {
-        window.location.href = '/lista';
-    });
-
-
-    $.ajax({
-        url: '/listatipodespesa',
-        method: "get",
-        success: function (data) {
-            $('#listatpdespesa').html(data);
-
-        }
-    });
-
-    $.ajax({
-        url: '/getTipodespesa',
-        method: "get",
-        success: function (data) {
-       
-            data.forEach(element => {
-                let elem = document.createElement("option");
-                elem.value = element.tipodespesa;
-                elem.text = element.tipodespesa;
-        
-                document.getElementById("getTpDespesa").add(elem, elem[0]) ; 
-            });        
-        }
-    });    
+$('#btn_voltar').click(function () {
+    window.location.href = '/lista';
+});
 
 
-   
-    
-function recuperar(){
-    $.ajax({
-        url: '/getDespesa',
-        method: "get",
-        success: function (data) {
-       
-            data.forEach(element => {
-                let td =  document.createElement("td");
-                td.appendChild(data.despesa);
-                td.appendChild(data.valor);
-                td.appendChild(data.data);
-                td.appendChild(data.tipodespesa);
-                td.appendChild(data.situacao);
-                document.getElementsByClassName('linha').add(td);
-            });        
-        }
-    });
-}
+$.ajax({
+    url: '/listatipodespesa',
+    method: "get",
+    success: function (data) {
+        console.log(data);
+        $('#listatpdespesa').html(data);
+
+    }
+});
+
+$.ajax({
+    url: 'http://localhost:81/apitpdespesa',
+    method: "get",
+    success: function (data) {
+
+        data.forEach(element => {
+            let elem = document.createElement("option");
+            elem.value = element.tipodespesa;
+            elem.text = element.tipodespesa;
+
+            document.getElementById("getTpDespesa").add(elem, elem[0]);
+        });
+
+    }
+});
+
+
+$.ajax({
+    url: 'http://localhost:81/api',
+    method: "get",
+    success: function (data) {
+
+        data.forEach(element => {
+
+            document.getElementById('table-list-despesas').innerHTML += `
+                <tr>
+                     <td>
+                     <a style="text-decoration: none;color: black;"
+                         href="#">
+                         <i class="bi bi-x-square"></i>
+                     </a>
+                     </td>
+
+                     <td scope="row"> ${element.despesa} </td>
+                     <td> ${element.valor} </td>
+                     <td> ${element.data} </td>
+                     <td> ${element.tipodespesa}</td>
+                     <td> ${element.situacao}</td>
+              </tr>   
+             `;
+        });
+    }
+});
+
 
 
 function EnviarData(dados) {
-    window.location.href = '/data?mes=' + dados    
+
+    $.ajax({
+        url: 'http://localhost:81/data/' + dados,
+        method: "get",
+        success: function (data) {
+            console.log(data);
+            data.forEach(element => {
+
+                document.getElementById('table-line').innerHTML += `
+                    <tr>
+                         <td>
+                         <a style="text-decoration: none;color: black;"
+                             href="#">
+                             <i class="bi bi-x-square"></i>
+                         </a>
+                         </td>
+ 
+                         <td scope="row"> ${element.despesa} </td>
+                         <td> ${element.valor} </td>
+                         <td> ${element.data} </td>
+                         <td> ${element.tipodespesa}</td>
+                  </tr>   
+                 `;
+            });
+        }
+    });
 }
 
 function cadastro(_id) {

@@ -7,22 +7,22 @@
         </tr>
     </thead>
     <tbody>
-        <% for(let i=0; i < dados.length; i++) {%>
-            <tr class="linha">
-                <td>
-                    <a style="text-decoration: none;color: black;"
-                        href="/deletartipodespesa?id_tpdespesa=<%=dados[i]._id  %> ">
-                        <i class="bi bi-x-square"></i>
-                    </a>
-                </td>
 
-                <td scope="row">
-                    <%=dados[i].id %>
-                </td>
-                <td>
-                    <%=dados[i].tipodespesa %>
-                </td>
-            </tr>
-            <%} %>
+        <tr class="linha">
+            <td>
+                <a style="text-decoration: none;color: black;"
+                    href="/deletartipodespesa?id_tpdespesa=<%=dados[i]._id  %> ">
+                    <i class="bi bi-x-square"></i>
+                </a>
+            </td>
+
+            <td scope="row">
+                1
+            </td>
+            <td>
+                Fixas
+            </td>
+        </tr>
+
     </tbody>
 </table>
