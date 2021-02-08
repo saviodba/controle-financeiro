@@ -48,4 +48,8 @@ module.exports = function (application) {
     application.get('/deletartipodespesa', function (req, res) {
         application.app.controllers.despesa.deletartipodespesa(application, req, res);
     });
+
+    application.get('/menu', function (req, res) {
+        application.app.controllers.index.menu(application, req, res);
+    });
 }

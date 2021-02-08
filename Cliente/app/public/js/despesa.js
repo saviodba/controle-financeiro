@@ -27,25 +27,29 @@ document.getElementById('form-user-create').addEventListener("submit", function 
         despesa.situacao
     );
 
-
-    console.log(objectDesp);
+    EnviarDados(objectDesp);
 
 });
 
+function post(dados) {
+    $.ajax({
+        url: "http://localhost:81/api",
+        contentType: 'application/json',
+        cache: false,
+        method: 'POST',
+        dataType: 'json',
+        data: JSON.stringify(dados),
+        success: function (data) {
+            console.log(data);
+        }
 
+    });
+}
 
 function EnviarDados(dados) {
-    var formData = new FormData();
-    formData.append(dados);
+
     let xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            let resposta = xhr.responseText;
-            alert(resposta);
-        }
-    }
-
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
     xhr.open("POST", "http://localhost:81/api");
-    xhr.send(formData);
+    xhr.send(dados);
 }

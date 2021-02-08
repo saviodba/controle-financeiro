@@ -13,12 +13,31 @@ $('#btn_voltar').click(function () {
 
 
 $.ajax({
-    url: '/listatipodespesa',
+    url: 'http://localhost:81/listatipodespesa',
     method: "get",
     success: function (data) {
-        console.log(data);
-        $('#listatpdespesa').html(data);
 
+        let table = "";
+        data.forEach(element => {
+            table += `
+            <tr class="linha">
+                <td>
+                    <a style="text-decoration: none;color: black;"
+                        href="#">
+                        <i class="bi bi-x-square"></i>
+                    </a>
+                </td>
+
+                <td scope="row">
+                    ${element.id}
+                </td>
+                <td>
+                    ${element.tipodespesa}
+                </td>
+            </tr>        
+        `;
+        });
+        document.getElementById('listatpdespesa').innerHTML = table;
     }
 });
 
@@ -74,10 +93,10 @@ function EnviarData(dados) {
         url: 'http://localhost:81/data/' + dados,
         method: "get",
         success: function (data) {
-            console.log(data);
+            let table = "";
             data.forEach(element => {
 
-                document.getElementById('table-line').innerHTML += `
+                table += `
                     <tr>
                          <td>
                          <a style="text-decoration: none;color: black;"
@@ -93,9 +112,12 @@ function EnviarData(dados) {
                   </tr>   
                  `;
             });
+            document.getElementById('table-line').innerHTML = table;
         }
     });
 }
+
+
 
 function cadastro(_id) {
     if (_id == "") {

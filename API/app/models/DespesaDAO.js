@@ -7,7 +7,6 @@ function DespesaDAO(connection) {
 
 DespesaDAO.prototype.inserirdespesa = function (res, despesa) {
 
-    console.log(despesa);
     res.setHeader("Access-Control-Allow-Origin", "*");
     this._connection.open(function (err, mongoclient) {
 

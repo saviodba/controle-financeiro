@@ -23,31 +23,43 @@
 
         <form method="post" action="/tipodespesa">
             <div class="col-md ">
- 
-                        <div class="row">
-                            <div class=" col-md-2">
-                                <label class="col-md-6 col-form-label">ID Despesa</label>
-                                <input class="form-control" type="text" name="id" id="edt_Id" 
-                                    placeholder="Digite o ID" />
-                            </div>
 
-                            <div class=" col-md-6">
-                                <label class="col-md-2 col-form-label">Despesa</label>
-                                <input class="form-control" type="text" name="tipodespesa" id="edt_tipodespesa"
-                                 placeholder="Digite o nome da despesa" />
-                            </div>
+                <div class="row">
+                    <div class=" col-md-2">
+                        <label class="col-md-6 col-form-label">ID Despesa</label>
+                        <input class="form-control" type="text" name="id" id="edt_Id" placeholder="Digite o ID" />
+                    </div>
 
-                        </div>
-                        <div class="col-md-4 mt-2">
-                            <button type="submit" class="btn btn-primary" id="">Gravar</button>
-                        </div>
+                    <div class=" col-md-6">
+                        <label class="col-md-2 col-form-label">Despesa</label>
+                        <input class="form-control" type="text" name="tipodespesa" id="edt_tipodespesa"
+                            placeholder="Digite o nome da despesa" />
+                    </div>
+
+                </div>
+                <div class="col-md-4 mt-2">
+                    <button type="submit" class="btn btn-primary" id="">Gravar</button>
+                </div>
 
             </div>
         </form>
 
 
         <div class="row g-1 mt-2">
-            <div id="listatpdespesa"></div>
+            <table class="table">
+                <thead class="table table-dark">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tipo Despesa</th>
+                    </tr>
+                </thead>
+                <tbody id="listatpdespesa">
+
+
+
+                </tbody>
+            </table>
         </div>
 
         <script src="js/script.js"></script>

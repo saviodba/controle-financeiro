@@ -9,7 +9,7 @@ module.exports.cadastrodespesa = function (application, req, res) {
         assert.ifError(err);
         res.json(obj);
         let dados = req.body;
-        console.log(dados);
+
     });
 
 }
